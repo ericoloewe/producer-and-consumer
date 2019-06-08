@@ -1,7 +1,8 @@
 -module(consumer).
 
 %% API exports
--export([consumer/2]).
+-export([start/2]).
 
-consumer(ConsumerId, BufferPid) ->
-    io:format("- consumer #~p started~n", [ConsumerId]).
+start(ConsumerId, BufferPid) ->
+    io:format("[consumer] #~p started ~n", [ConsumerId]),
+    BufferPid ! {ConsumerId, self()}.

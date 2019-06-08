@@ -1,7 +1,15 @@
 -module(producer).
 
 %% API exports
--export([producer/2]).
+-export([start/2]).
 
-producer(ProducerId, BufferPid) ->
-    io:format("- producer #~p started~n", [ProducerId]).
+start(ProducerId, BufferPid) ->
+    io:format("[producer] #~p started ~n", [ProducerId]),
+    produce(ProducerId, BufferPid).
+
+produce(ProducerId, BufferPid) ->
+    io:format("[producer] #~p working ~n", [ProducerId]),
+    Time = rand:uniform(5) * 1000,
+    timer:sleep(Time),
+    BufferPid ! {ProducerId, Time, self()},
+    produce(ProducerId, BufferPid).
