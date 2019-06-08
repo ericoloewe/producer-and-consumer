@@ -19,11 +19,10 @@ manage(Consumers, Products) ->
     end.
 
 notifyConsumerAndKeepManaging(Consumers, Products) ->
-    [PID | _] = Consumers,
-    [MoreOldProduct | _] = Products,
+    [PID | RestOfConsumers] = Consumers,
+    [MoreOldProduct | RestOfProducts] = Products,
     PID ! {MoreOldProduct},
-    manage(lists:sublist(Consumers, 2, length(Consumers)),
-	   lists:sublist(Products, 2, length(Products))).
+    manage(RestOfConsumers, RestOfProducts).
 
 receiveConsumerAndKeepManaging(ConsumerId, PID,
 			       Consumers, Products) ->
