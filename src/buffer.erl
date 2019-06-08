@@ -19,8 +19,8 @@ manage(Consumers, Products) ->
     end.
 
 notifyConsumerAndKeepManaging(Consumers, Products) ->
-    [PID] = Consumers,
-    [MoreOldProduct] = Products,
+    [PID | _] = Consumers,
+    [MoreOldProduct | _] = Products,
     PID ! {MoreOldProduct},
     manage(lists:sublist(Consumers, 2, length(Consumers)),
 	   lists:sublist(Products, 2, length(Products))).
