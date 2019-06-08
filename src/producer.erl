@@ -1,7 +1,7 @@
 -module(producer).
 
 %% API exports
--export([producer/1]).
+-export([producer/2]).
 
-producer(ProducerId) ->
+producer(ProducerId, BufferPid) ->
     io:format("- producer #~p started~n", [ProducerId]).

@@ -1,7 +1,7 @@
 -module(consumer).
 
 %% API exports
--export([consumer/1]).
+-export([consumer/2]).
 
-consumer(ConsumerId) ->
+consumer(ConsumerId, BufferPid) ->
     io:format("- consumer #~p started~n", [ConsumerId]).
