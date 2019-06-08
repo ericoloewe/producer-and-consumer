@@ -10,7 +10,7 @@
             "request": "launch",
             "cwd": "${workspaceRoot}",
             "preLaunchTask": "compile",
-            "arguments": "-s producer_and_consumer main args"
+            "arguments": "-s producer_and_consumer main"
         }
     ]
 }
