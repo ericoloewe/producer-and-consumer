@@ -4,12 +4,16 @@
 -export([start/0]).
 
 start() ->
-    io:format("[buffer] started ~n"),
+    io:format("[buffer] started ~n"), manage([], []).
+
+manage(Consumers, Products) ->
     receive
       {ConsumerId, PID} ->
 	  io:format("[buffer] receive consumer: ~p ~p ~n",
-		    [ConsumerId, PID]);
+		    [ConsumerId, PID]),
+	  manage(Consumers ++ [PID], Products);
       {ProducerId, Product, PID} ->
 	  io:format("[buffer] receive producer: ~p ~p ~p ~n",
-		    [ProducerId, Product, PID])
+		    [ProducerId, Product, PID]),
+	  manage(Consumers, Products ++ [Product])
     end.
