@@ -1,0 +1,7 @@
+{
+    "editor.tabSize": 2,
+    "erlang.verbose": true,
+    "erlang.rebarBuildArgs": [
+        "escriptize"
+    ]
+}
