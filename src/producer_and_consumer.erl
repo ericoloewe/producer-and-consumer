@@ -16,20 +16,30 @@ main(NumberOfConsumers, NumberOfProducers) ->
     createConsumers(NumberOfConsumers, BufferPid),
     createProducers(NumberOfProducers, BufferPid).
 
+createConsumer(Index, NumberOfConsumers, BufferPid) ->
+    TimeToConsume = rand:uniform(NumberOfConsumers) * 1000,
+    spawn(consumer, start,
+	  [Index, BufferPid, TimeToConsume]).
+
 createConsumers(NumberOfConsumers, BufferPid) ->
     spawn(fun () ->
 		  lists:foreach(fun (Index) ->
-					spawn(consumer, start,
-					      [Index, BufferPid])
+					createConsumer(Index, NumberOfConsumers,
+						       BufferPid)
 				end,
 				lists:seq(1, NumberOfConsumers))
 	  end).
 
+createProducer(Index, NumberOfProducers, BufferPid) ->
+    TimeToProduce = rand:uniform(NumberOfProducers) * 1000,
+    spawn(producer, start,
+	  [Index, BufferPid, TimeToProduce]).
+
 createProducers(NumberOfProducers, BufferPid) ->
     spawn(fun () ->
 		  lists:foreach(fun (Index) ->
-					spawn(producer, start,
-					      [Index, BufferPid])
+					createProducer(Index, NumberOfProducers,
+						       BufferPid)
 				end,
 				lists:seq(1, NumberOfProducers))
 	  end).
